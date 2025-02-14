@@ -17,12 +17,12 @@ WS_OP_SUBSCRIBE = "subscribe"
 WS_OP_UNSUBSCRIBE = "unsubscribe"
 
 
-def handle(message):
-    print("default:" + message)
+# def handle(message):
+#     print("default:" + message)
 
 
-def handel_error(message):
-    print("default_error:" + message)
+# def handel_error(message):
+#     print("default_error:" + message)
 
 
 class BitgetWsClient:
