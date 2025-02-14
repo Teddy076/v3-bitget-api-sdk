@@ -37,8 +37,8 @@ class BitgetWsClient:
         self.__api_secret_key = None
         self.__passphrase = None
         self.__all_suribe = set()
-        self.__listener = handle
-        self.__error_listener = handel_error
+        # self.__listener = handle
+        # self.__error_listener = handel_error
         self.__url = url
         self.__scribe_map = {}
         self.__allbooks_map = {}
