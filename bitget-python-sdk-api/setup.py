@@ -5,7 +5,7 @@ from setuptools import setup
 
 
 setup(
-    name='bitget-python',
+    name='bitget',
     version='v1',
     packages=['bitget'],
     license="MIT",
