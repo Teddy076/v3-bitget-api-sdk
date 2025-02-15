@@ -332,7 +332,7 @@ class SubscribeReq:
         self.inst_type = inst_type
         self.channel = channel
         self.inst_id = instId
-        self.coin = instId
+        #self.coin = instId
 
     def __eq__(self, other) -> bool:
         return self.__dict__ == other.__dict__
