@@ -160,7 +160,7 @@ class BitgetWsClient:
     def __on_message(self, ws, message):
 
         if message == 'pong':
-            print("Keep connected:" + message)
+            #print("Keep connected:" + message)
             return
         json_obj = json.loads(message)
         if "code" in json_obj and json_obj.get("code") != 0:
