@@ -111,7 +111,7 @@ class BitgetWsClient:
 
     def connect(self):
         try:
-            self.__ws_client.run_forever(ping_timeout=10, sslopt={"cert_reqs": ssl.create_default_context(cafile=certifi.where())})
+            self.__ws_client.run_forever(ping_timeout=10, ssl=ssl.create_default_context(cafile=certifi.where()))
         except Exception as ex:
             print(ex)
 
