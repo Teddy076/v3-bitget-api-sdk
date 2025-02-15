@@ -4,6 +4,8 @@ import math
 import threading
 import time
 import traceback
+import certifi
+import ssl
 from threading import Timer
 from zlib import crc32
 
@@ -109,7 +111,7 @@ class BitgetWsClient:
 
     def connect(self):
         try:
-            self.__ws_client.run_forever(ping_timeout=10)
+            self.__ws_client.run_forever(ping_timeout=10, sslopt={"cert_reqs": ssl.create_default_context(cafile=certifi.where())})
         except Exception as ex:
             print(ex)
 
