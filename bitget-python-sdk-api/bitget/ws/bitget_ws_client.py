@@ -315,7 +315,7 @@ class BooksInfo:
                 if len(self.asks) >= x:
                     crc32str = crc32str + self.asks[x][0] + ":" + self.asks[x][1] + ":"
         except Exception as e:
-            print(e, exc_info=True)
+            print(e)
             print(str(x))
             print(len(self.bids))
             print(self.bids)
