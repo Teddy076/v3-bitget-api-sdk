@@ -305,12 +305,17 @@ class BooksInfo:
 
     def check_sum(self, new_check_sum):
         crc32str = ''
-        for x in range(25):
-            if self.bids[x] is not None:
-                crc32str = crc32str + self.bids[x][0] + ":" + self.bids[x][1] + ":"
+        try:
+            for x in range(25):
+                if self.bids[x] is not None:
+                    crc32str = crc32str + self.bids[x][0] + ":" + self.bids[x][1] + ":"
 
-            if self.asks[x] is not None:
-                crc32str = crc32str + self.asks[x][0] + ":" + self.asks[x][1] + ":"
+                if self.asks[x] is not None:
+                    crc32str = crc32str + self.asks[x][0] + ":" + self.asks[x][1] + ":"
+        except:
+            print(str(x))
+            print(len(self.bids))
+            print(self.bids)
 
         crc32str = crc32str[0:len(crc32str) - 1]
         #print(crc32str)
