@@ -313,7 +313,7 @@ class BooksInfo:
                 crc32str = crc32str + self.asks[x][0] + ":" + self.asks[x][1] + ":"
 
         crc32str = crc32str[0:len(crc32str) - 1]
-        print(crc32str)
+        #print(crc32str)
         merge_num = crc32(bytes(crc32str, encoding="utf8"))
         #print("start checknum mergeVal:" + str(merge_num) + ",checkVal:" + str(new_check_sum)+",checkSin:"+str(self.__signed_int(merge_num)))
         if new_check_sum != self.__signed_int(merge_num):
