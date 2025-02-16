@@ -270,20 +270,20 @@ class BitgetWsClient:
                     #print("CheckSum ERROR on "+subscribe_req.inst_id)
 
                     if subscribe_req.inst_id in self.__market_reconnect:
-                        if self.__market_reconnect[subscribe_req.inst_id][1] >= DEPTH_BLACKLIST_TRIGGER:
+                        if self.__market_reconnect[subscribe_req.inst_id]['try'] >= DEPTH_BLACKLIST_TRIGGER:
                             return False                        
-                        if (self.__market_reconnect[subscribe_req.inst_id][0] + DEPTH_RECONNECT_DELAY) > time.time():
+                        if (self.__market_reconnect[subscribe_req.inst_id]['time'] + DEPTH_RECONNECT_DELAY) > time.time():
                             return False
                     else:
-                        self.__market_reconnect[subscribe_req.inst_id] = []
-                        self.__market_reconnect[subscribe_req.inst_id][0] = time.time()
-                        self.__market_reconnect[subscribe_req.inst_id][1] = 0
+                        self.__market_reconnect[subscribe_req.inst_id] = {}
+                        self.__market_reconnect[subscribe_req.inst_id]['time'] = time.time()
+                        self.__market_reconnect[subscribe_req.inst_id]['try'] = 0
                         return False
                                         
                     self.unsubscribe([subscribe_req])
                     self.subscribe([subscribe_req])
-                    self.__market_reconnect[subscribe_req.inst_id][0] = time.time()
-                    self.__market_reconnect[subscribe_req.inst_id][1] += 1
+                    self.__market_reconnect[subscribe_req.inst_id]['time'] = time.time()
+                    self.__market_reconnect[subscribe_req.inst_id]['try'] += 1
                     return False
                 else:
                     if subscribe_req.inst_id in self.__market_reconnect:
