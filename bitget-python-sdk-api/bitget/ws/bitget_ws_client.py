@@ -20,8 +20,8 @@ WS_OP_UNSUBSCRIBE = "unsubscribe"
 
 SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
-DEPTH_RECONNECT_DELAY = 60
-DEPTH_BLACKLIST_TRIGGER = 5
+DEPTH_RECONNECT_DELAY = 120
+DEPTH_BLACKLIST_TRIGGER = 3
 
 # def handle(message):
 #     print("default:" + message)
