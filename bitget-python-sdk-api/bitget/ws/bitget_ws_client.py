@@ -21,6 +21,7 @@ WS_OP_UNSUBSCRIBE = "unsubscribe"
 SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
 DEPTH_RECONNECT_DELAY = 60
+DEPTH_BLACKLIST_TRIGGER = 5
 
 # def handle(message):
 #     print("default:" + message)
@@ -267,18 +268,25 @@ class BitgetWsClient:
                 if not check_sum:
                     #self.__marketerror[subscribe_req.inst_id] = subscribe_req
                     #print("CheckSum ERROR on "+subscribe_req.inst_id)
-                    
-                    reconnect = True
 
                     if subscribe_req.inst_id in self.__market_reconnect:
-                        if (self.__market_reconnect[subscribe_req.inst_id] + DEPTH_RECONNECT_DELAY) > time.time():
-                            reconnect = False
-                    
-                    if reconnect == True:
-                        self.unsubscribe([subscribe_req])
-                        self.subscribe([subscribe_req])
-                        self.__market_reconnect[subscribe_req.inst_id] = time.time()
+                        if self.__market_reconnect[subscribe_req.inst_id][1] >= DEPTH_BLACKLIST_TRIGGER:
+                            return False                        
+                        if (self.__market_reconnect[subscribe_req.inst_id][0] + DEPTH_RECONNECT_DELAY) > time.time():
+                            return False
+                    else:
+                        self.__market_reconnect[subscribe_req.inst_id][0] = time.time()
+                        self.__market_reconnect[subscribe_req.inst_id][1] = 0
+                        return False
+                                        
+                    self.unsubscribe([subscribe_req])
+                    self.subscribe([subscribe_req])
+                    self.__market_reconnect[subscribe_req.inst_id][0] = time.time()
+                    self.__market_reconnect[subscribe_req.inst_id][1] += 1
                     return False
+                else:
+                    if subscribe_req.inst_id in self.__market_reconnect:
+                        del self.__market_reconnect[subscribe_req.inst_id]
                 self.__allbooks_map[subscribe_req] = all_books
         except Exception as e:
             msg = traceback.format_exc()
