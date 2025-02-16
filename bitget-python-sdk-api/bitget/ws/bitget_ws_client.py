@@ -20,7 +20,7 @@ WS_OP_UNSUBSCRIBE = "unsubscribe"
 
 SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
-DEPTH_RECONNECT_DELAY = 30
+DEPTH_RECONNECT_DELAY = 15
 
 # def handle(message):
 #     print("default:" + message)
@@ -265,7 +265,7 @@ class BitgetWsClient:
                 check_sum = all_books.check_sum(books_info.checksum)
                 if not check_sum:
                     #self.__marketerror[subscribe_req.inst_id] = subscribe_req
-                    print("CheckSum ERROR on "+subscribe_req.inst_id)
+                    #print("CheckSum ERROR on "+subscribe_req.inst_id)
                     
                     reconnect = True
 
