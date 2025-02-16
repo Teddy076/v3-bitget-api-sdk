@@ -45,6 +45,7 @@ class BitgetWsClient:
         self.__url = url
         self.__scribe_map = {}
         self.__allbooks_map = {}
+        self.__marketerror = {}
 
     def build(self):
         self.__ws_client = self.__init_client()
@@ -261,6 +262,7 @@ class BitgetWsClient:
                 all_books = all_books.merge(books_info)
                 check_sum = all_books.check_sum(books_info.checksum)
                 if not check_sum:
+                    self.__marketerror[subscribe_req.inst_id] = subscribe_req
                     print("CheckSum ERROR on "+subscribe_req.inst_id)
                     # self.unsubscribe([subscribe_req])
                     # self.subscribe([subscribe_req])
