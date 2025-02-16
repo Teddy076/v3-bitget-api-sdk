@@ -20,7 +20,7 @@ WS_OP_UNSUBSCRIBE = "unsubscribe"
 
 SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
-DEPTH_RECONNECT_DELAY = 15
+DEPTH_RECONNECT_DELAY = 60
 
 # def handle(message):
 #     print("default:" + message)
@@ -333,9 +333,9 @@ class BooksInfo:
         crc32str = crc32str[0:len(crc32str) - 1]
         #print(crc32str)
         merge_num = crc32(bytes(crc32str, encoding="utf8"))
-        if new_check_sum != self.__signed_int(merge_num):
-            print("******************* CheckSum ERROR *******************")
-            print("start checknum mergeVal:" + str(merge_num) + ",checkVal:" + str(new_check_sum)+",checkSin:"+str(self.__signed_int(merge_num)))
+        # if new_check_sum != self.__signed_int(merge_num):
+        #     print("******************* CheckSum ERROR *******************")
+        #     print("start checknum mergeVal:" + str(merge_num) + ",checkVal:" + str(new_check_sum)+",checkSin:"+str(self.__signed_int(merge_num)))
         return self.__signed_int(merge_num) == new_check_sum
 
     def __signed_int(self, checknum):
