@@ -181,7 +181,7 @@ class BitgetWsClient:
         listenner = None
         if "data" in json_obj:
             if not self.__check_sum(json_obj):
-                print(message)
+                #print(message)
                 return
 
             listenner = self.get_listener(json_obj)
@@ -333,9 +333,9 @@ class BooksInfo:
         crc32str = crc32str[0:len(crc32str) - 1]
         #print(crc32str)
         merge_num = crc32(bytes(crc32str, encoding="utf8"))
-        print("start checknum mergeVal:" + str(merge_num) + ",checkVal:" + str(new_check_sum)+",checkSin:"+str(self.__signed_int(merge_num)))
         if new_check_sum != self.__signed_int(merge_num):
             print("******************* CheckSum ERROR *******************")
+            print("start checknum mergeVal:" + str(merge_num) + ",checkVal:" + str(new_check_sum)+",checkSin:"+str(self.__signed_int(merge_num)))
         return self.__signed_int(merge_num) == new_check_sum
 
     def __signed_int(self, checknum):
