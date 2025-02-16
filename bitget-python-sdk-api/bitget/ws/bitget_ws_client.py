@@ -275,6 +275,7 @@ class BitgetWsClient:
                         if (self.__market_reconnect[subscribe_req.inst_id][0] + DEPTH_RECONNECT_DELAY) > time.time():
                             return False
                     else:
+                        self.__market_reconnect[subscribe_req.inst_id] = []
                         self.__market_reconnect[subscribe_req.inst_id][0] = time.time()
                         self.__market_reconnect[subscribe_req.inst_id][1] = 0
                         return False
