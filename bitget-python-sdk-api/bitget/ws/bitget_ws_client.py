@@ -307,11 +307,11 @@ class BooksInfo:
         crc32str = ''
         for x in range(25):
             #if self.bids[x] is not None:
-            if len(self.bids) >= x:
+            if len(self.bids) >= (x+1):
                 crc32str = crc32str + self.bids[x][0] + ":" + self.bids[x][1] + ":"
 
             #if self.asks[x] is not None:
-            if len(self.asks) >= x:
+            if len(self.asks) >= (x+1):
                 crc32str = crc32str + self.asks[x][0] + ":" + self.asks[x][1] + ":"
         
 
