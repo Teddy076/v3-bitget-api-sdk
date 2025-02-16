@@ -261,8 +261,9 @@ class BitgetWsClient:
                 all_books = all_books.merge(books_info)
                 check_sum = all_books.check_sum(books_info.checksum)
                 if not check_sum:
-                    self.unsubscribe([subscribe_req])
-                    self.subscribe([subscribe_req])
+                    print("CheckSum ERROR on "+subscribe_req['inst_id'])
+                    # self.unsubscribe([subscribe_req])
+                    # self.subscribe([subscribe_req])
                     return False
                 self.__allbooks_map[subscribe_req] = all_books
         except Exception as e:
