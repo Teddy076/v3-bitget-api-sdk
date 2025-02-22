@@ -5,7 +5,7 @@ import time
 import traceback
 import certifi
 import ssl
-import multiprocessing
+import threading
 from threading import Timer
 from zlib import crc32
 
@@ -23,12 +23,12 @@ SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 DEPTH_RECONNECT_DELAY = 120
 DEPTH_BLACKLIST_TRIGGER = 3
 
-def handle(message):
-    print("default:" + message)
+# def handle(message):
+#     print("default:" + message)
 
 
-def handel_error(message):
-    print("default_error:" + message)
+# def handel_error(message):
+#     print("default_error:" + message)
 
 
 class BitgetWsClient:
@@ -52,8 +52,8 @@ class BitgetWsClient:
 
     def build(self):
         self.__ws_client = self.__init_client()
-        #__thread = threading.Thread(target=self.connect)
-        __thread = multiprocessing.Process(target=self.connect)
+        __thread = threading.Thread(target=self.connect)
+        #__thread = multiprocessing.Process(target=self.connect)
         __thread.start()
 
         while not self.has_connect():
