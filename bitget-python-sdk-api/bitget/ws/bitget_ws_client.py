@@ -59,8 +59,10 @@ class BitgetWsClient:
 
     def build(self):
         #thread = threading.Thread(target=self.connect)
-        thread = multiprocessing.Process(target=self.launch)
-        thread.start()
+        # thread = multiprocessing.Process(target=self.launch)
+        # thread.start()
+
+        self.connect()
 
         while not self.has_connect():
             print("start connecting... url: ", self.__url)
