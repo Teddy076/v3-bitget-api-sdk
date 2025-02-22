@@ -50,8 +50,11 @@ class BitgetWsClient:
         self.__allbooks_map = {}
         self.__market_reconnect = {}
 
-    def build(self):
+    def start(self):
         self.__ws_client = self.__init_client()
+        return self
+
+    def build(self):
         __thread = threading.Thread(target=self.connect)
         #__thread = multiprocessing.Process(target=self.connect)
         __thread.start()
