@@ -5,7 +5,7 @@ import time
 import traceback
 import certifi
 import ssl
-import threading
+import multiprocessing
 from threading import Timer
 from zlib import crc32
 
@@ -55,9 +55,9 @@ class BitgetWsClient:
         return self
 
     def build(self):
-        __thread = threading.Thread(target=self.connect)
-        #__thread = multiprocessing.Process(target=self.connect)
-        __thread.start()
+        #thread = threading.Thread(target=self.connect)
+        thread = multiprocessing.Process(target=self.connect)
+        thread.start()
 
         while not self.has_connect():
             print("start connecting... url: ", self.__url)
