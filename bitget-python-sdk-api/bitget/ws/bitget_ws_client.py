@@ -23,12 +23,12 @@ SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 DEPTH_RECONNECT_DELAY = 120
 DEPTH_BLACKLIST_TRIGGER = 3
 
-# def handle(message):
-#     print("default:" + message)
+def handle(message):
+    print("default:" + message)
 
 
-# def handel_error(message):
-#     print("default_error:" + message)
+def handel_error(message):
+    print("default_error:" + message)
 
 
 class BitgetWsClient:
@@ -117,8 +117,7 @@ class BitgetWsClient:
 
     def connect(self):
         try:
-            #self.__ws_client.run_forever(sslopt={"context": SSL_CONTEXT}, ping_timeout=10)
-            self.__ws_client.run_forever(ping_timeout=10)
+            self.__ws_client.run_forever(sslopt={"context": SSL_CONTEXT}, ping_timeout=10)
         except Exception as ex:
             print(ex)
 
