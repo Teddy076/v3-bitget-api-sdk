@@ -51,7 +51,7 @@ class BitgetWsClient:
         self.__market_reconnect = {}
 
     def start(self):
-        self.__ws_client = self.__init_client()
+        self._ws_client = self.__init_client()
         return self
 
     def build(self):
@@ -120,7 +120,7 @@ class BitgetWsClient:
 
     def connect(self):
         try:
-            self.__ws_client.run_forever(sslopt={"context": SSL_CONTEXT}, ping_timeout=10)
+            self._ws_client.run_forever(sslopt={"context": SSL_CONTEXT}, ping_timeout=10)
         except Exception as ex:
             print(ex)
 
@@ -128,14 +128,14 @@ class BitgetWsClient:
         try:
             __timer_thread = Timer(interval, self.__keep_connected, (interval,))
             __timer_thread.start()
-            self.__ws_client.send("ping")
+            self._ws_client.send("ping")
         except Exception as ex:
             print(ex)
 
     def send_message(self, op, args):
         message = json.dumps(BaseWsReq(op, args), default=lambda o: o.__dict__)
         print("send message:" + message)
-        self.__ws_client.send(message)
+        self._ws_client.send(message)
 
     def subscribe(self, channels, listener=None):
 
@@ -241,7 +241,7 @@ class BitgetWsClient:
     def __close(self):
         self.__login_status = False
         self.__connection = False
-        self.__ws_client.close()
+        self._ws_client.close()
 
     def __check_sum(self, json_obj):
         # noinspection PyBroadException
