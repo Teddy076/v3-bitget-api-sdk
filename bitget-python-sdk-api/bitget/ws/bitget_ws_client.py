@@ -117,7 +117,8 @@ class BitgetWsClient:
 
     def connect(self):
         try:
-            self.__ws_client.run_forever(sslopt={"context": SSL_CONTEXT}, ping_timeout=10)
+            #self.__ws_client.run_forever(sslopt={"context": SSL_CONTEXT}, ping_timeout=10)
+            self.__ws_client.run_forever(ping_timeout=10)
         except Exception as ex:
             print(ex)
 
