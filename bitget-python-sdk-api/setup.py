@@ -10,7 +10,7 @@ setup(
     packages=['bitget', 'bitget/ws', 'bitget/v2'],
     license="MIT",
     description="bitget-api-sdk",
-    install_requires=['requests', 'websockets', 'pycryptodome', 'certifi'],
+    install_requires=['requests', 'websockets', 'pycryptodome', 'certifi', 'multiprocess'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
