@@ -52,15 +52,15 @@ class BitgetWsClient:
         self.__market_reconnect = {}
 
     def build_mp(self):
-        self.__ws_client = self.__init_client()
+        self.ws_client = self.__init_client()
         __thread = multiprocess.Process(target=self.connect)
         __thread.start()
 
         time.sleep(5)
 
-        while not self.has_connect():
-            print("start connecting... url: ", self.__url)
-            time.sleep(1)
+        # while not self.has_connect():
+        #     print("start connecting... url: ", self.__url)
+        #     time.sleep(1)
 
         if self.__need_login:
             self.__login()
@@ -70,7 +70,7 @@ class BitgetWsClient:
         return self
 
     def build(self):
-        self.__ws_client = self.__init_client()
+        self.ws_client = self.__init_client()
         __thread = threading.Thread(target=self.connect)
         __thread.start()
 
@@ -135,22 +135,22 @@ class BitgetWsClient:
 
     def connect(self):
         try:
-            self.__ws_client.run_forever(sslopt={"context": SSL_CONTEXT}, ping_timeout=10)
+            self.ws_client.run_forever(sslopt={"context": SSL_CONTEXT}, ping_timeout=10)
         except Exception as ex:
             print(ex)
 
-    def __keep_connected(self, interval):
+    def keep_connected(self, interval):
         try:
             __timer_thread = Timer(interval, self.keep_connected, (interval,))
             __timer_thread.start()
-            self.__ws_client.send("ping")
+            self.ws_client.send("ping")
         except Exception as ex:
             print(ex)
 
     def send_message(self, op, args):
         message = json.dumps(BaseWsReq(op, args), default=lambda o: o.__dict__)
         print("send message:" + message)
-        self.__ws_client.send(message)
+        self.ws_client.send(message)
 
     def subscribe(self, channels, listener=None):
 
@@ -256,7 +256,7 @@ class BitgetWsClient:
     def __close(self):
         self.__login_status = False
         self.connection = False
-        self.__ws_client.close()
+        self.ws_client.close()
 
     def __check_sum(self, json_obj):
         # noinspection PyBroadException
