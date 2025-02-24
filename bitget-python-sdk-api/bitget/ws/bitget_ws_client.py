@@ -63,7 +63,7 @@ class BitgetWsClient:
         if self.__need_login:
             self.__login()
 
-        self.__keep_connected(25)
+        self.keep_connected(25)
 
         return self
 
@@ -79,7 +79,7 @@ class BitgetWsClient:
         if self.__need_login:
             self.__login()
 
-        self.__keep_connected(25)
+        self.keep_connected(25)
 
         return self
 
@@ -139,7 +139,7 @@ class BitgetWsClient:
 
     def __keep_connected(self, interval):
         try:
-            __timer_thread = Timer(interval, self.__keep_connected, (interval,))
+            __timer_thread = Timer(interval, self.keep_connected, (interval,))
             __timer_thread.start()
             self.__ws_client.send("ping")
         except Exception as ex:
