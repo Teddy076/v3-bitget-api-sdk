@@ -34,8 +34,8 @@ DEPTH_BLACKLIST_TRIGGER = 3
 
 class BitgetWsClient:
 
-    def __init__(self, url, need_login=False):
-        utils.check_none(url, "url")
+    def __init__(self, need_login=False):
+        #utils.check_none(url, "url")
         self.__need_login = need_login
         self.__connection = False
         self.__login_status = False
@@ -46,7 +46,7 @@ class BitgetWsClient:
         self.__all_suribe = set()
         # self.__listener = handle
         # self.__error_listener = handel_error
-        self.__url = url
+        self.__url = c.CONTRACT_WS_URL
         self.__scribe_map = {}
         self.__allbooks_map = {}
         self.__market_reconnect = {}
