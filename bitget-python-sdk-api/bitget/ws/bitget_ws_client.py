@@ -51,10 +51,9 @@ class BitgetWsClient:
         self.__allbooks_map = {}
         self.__market_reconnect = {}
 
-    def start(self, private, api_key, api_secret, api_passphrase):
-        self.api_key(api_key)
-        self.api_secret_key(api_secret)
-        self.passphrase(api_passphrase)
+    def start(self, listener, error_listener):
+        self.listener(listener)
+        self.error_listener(error_listener)
         self.ws_client = self.__init_client()
         self.connect()
 
@@ -62,8 +61,8 @@ class BitgetWsClient:
             print("start connecting... url: ", self.__url)
             time.sleep(1)
 
-        if private:
-            self.__login()
+        # if private:
+        #     self.__login()
         
         thread = multiprocessing.Process(target=self.keep_connected, args=(25))
         thread.start()
