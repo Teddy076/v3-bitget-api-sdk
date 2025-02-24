@@ -37,7 +37,7 @@ class BitgetWsClient:
     def __init__(self, need_login=False):
         #utils.check_none(url, "url")
         self.__need_login = need_login
-        self.__connection = False
+        self.connection = False
         self.__login_status = False
         self.__reconnect_status = False
         self.__api_key = None
@@ -104,7 +104,7 @@ class BitgetWsClient:
         return self
 
     def has_connect(self):
-        return self.__connection
+        return self.connection
 
     def __init_client(self):
         try:
@@ -178,7 +178,7 @@ class BitgetWsClient:
 
     def __on_open(self, ws):
         print('connection is success....')
-        self.__connection = True
+        self.connection = True
         self.__reconnect_status = False
 
     def __on_message(self, ws, message):
@@ -253,7 +253,7 @@ class BitgetWsClient:
 
     def __close(self):
         self.__login_status = False
-        self.__connection = False
+        self.connection = False
         self.__ws_client.close()
 
     def __check_sum(self, json_obj):
