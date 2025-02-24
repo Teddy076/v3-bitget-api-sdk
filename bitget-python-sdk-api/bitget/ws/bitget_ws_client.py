@@ -6,6 +6,7 @@ import traceback
 import certifi
 import ssl
 import multiprocess
+import threading
 from threading import Timer
 from zlib import crc32
 
@@ -50,10 +51,25 @@ class BitgetWsClient:
         self.__allbooks_map = {}
         self.__market_reconnect = {}
 
+    def build_mp(self):
+        self.__ws_client = self.__init_client()
+        __thread = multiprocess.Process(target=self.connect)
+        __thread.start()
+
+        while not self.has_connect():
+            print("start connecting... url: ", self.__url)
+            time.sleep(1)
+
+        if self.__need_login:
+            self.__login()
+
+        self.__keep_connected(25)
+
+        return self
+
     def build(self):
         self.__ws_client = self.__init_client()
-        #__thread = threading.Thread(target=self.connect)
-        __thread = multiprocess.Process(target=self.connect)
+        __thread = threading.Thread(target=self.connect)
         __thread.start()
 
         while not self.has_connect():
